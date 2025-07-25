@@ -1,4 +1,5 @@
 using GameApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +12,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddRouting(routing => routing.LowercaseUrls = true);
 
-
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
+
 });
+
+
 
 
 var app = builder.Build();
