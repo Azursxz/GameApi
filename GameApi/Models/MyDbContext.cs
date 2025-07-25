@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameApi.Models
 {
-    public class MyDbContext
-    {
-        public class AppDbContext : DbContext
+        public class MyDbContext : DbContext
         {
-            public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+            public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
-            public DbSet<Juego> Juegos { get; set; }
+            public DbSet<Game> Games { get; set; }
+
         }
-    }
 }
