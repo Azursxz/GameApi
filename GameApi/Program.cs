@@ -1,4 +1,5 @@
 using GameApi.Models;
+using GameApi.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +19,9 @@ builder.Services.AddDbContext<MyDbContext>(options =>
 
 });
 
-
-
+builder.Services.AddScoped<GameServices>();// Tu servicio que hace la lógica de sincronización
+builder.Services.AddScoped<ScrapperGameService>();// Clase que obtiene los juegos
+builder.Services.AddHostedService<GameSyncService>(); // Servicio que corre cada 24h
 
 var app = builder.Build();
 
