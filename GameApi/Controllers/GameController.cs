@@ -19,7 +19,7 @@ namespace GameApi.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("AllGames")]
 
         public async Task<IActionResult> GetAll()
         {
@@ -36,7 +36,7 @@ namespace GameApi.Controllers
             return new OkObjectResult(games);
         }
 
-        [HttpGet("all")]
+        [HttpGet("AllGamesPaginated")]
         public async Task<IActionResult> GetAllPaginated(int pageNumber = 1, int pageSize = 25)
         {
             var gameCount = await _db.Games.CountAsync();
