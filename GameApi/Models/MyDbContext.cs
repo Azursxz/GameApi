@@ -9,5 +9,16 @@ namespace GameApi.Models
 
             public DbSet<Game> Games { get; set; }
 
+        //cambio de parametros de precision de decimal para Precio
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Game>()
+                .Property(g => g.Price)
+                .HasPrecision(10, 2); 
+
         }
+
+    }
+
+
 }
