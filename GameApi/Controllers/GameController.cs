@@ -41,7 +41,9 @@ namespace GameApi.Controllers
         {
             var gameCount = await _db.Games.CountAsync();
 
-            var games = await _db.Games.Skip((pageNumber - 1) * pageSize)
+            var games = await _db.Games
+                .OrderBy(g => g.GameId)
+                .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .Select(g => new GameDto
                 {
@@ -103,7 +105,6 @@ namespace GameApi.Controllers
             {
                 return BadRequest("El rango minimo no puede ser mayor al rango maximo");
             }
-
             if (rangoMin.HasValue)
             {
                 query = query.Where(g => g.Price >= rangoMin);
@@ -112,7 +113,6 @@ namespace GameApi.Controllers
             {
                 query = query.Where(g => g.Price <= rangoMax);
             }
-
             if (discount > 0)
             {
                 query = query.Where(g => g.Discount >= discount);
@@ -121,6 +121,7 @@ namespace GameApi.Controllers
             var totalGames = await query.CountAsync();
 
             var games = await query
+                .OrderBy(g => g.GameId)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .Select(g => new GameDto
