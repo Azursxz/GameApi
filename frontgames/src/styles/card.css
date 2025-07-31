@@ -1,0 +1,80 @@
+.card-game {
+    border-radius: 12px;
+    width: 320px;
+    margin: 0 auto;
+    background-color: white;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.card-game :hover{
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+.image-container {
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+.image-game {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name-game {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.price-game {
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.original-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    text-decoration: line-through;
+    line-height: 1.4;
+    overflow: hidden;
+}
+
+
+.discount-price .current-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.4;
+    overflow: hidden;
+}
+
+.buttons-container {
+    padding: 20 px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.button-ver .button-xbox {
+    background-color: cornflowerblue;
+    
+}
