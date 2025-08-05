@@ -1,4 +1,4 @@
-import { useState } from "react"
+//import { useState } from "react"
 import "./card.css"
 
 interface GameCardProps {
@@ -14,7 +14,7 @@ interface GameCardProps {
 export default function Card({id, name, image, originalPrice, discount,link }: GameCardProps) {
 
 //  const [isExpanded, setIsExpanded] = useState(false)
-  const [selectedImage, setSelectedImage] = useState(0)
+ // const [selectedImage, setSelectedImage] = useState(0)
 
 /*
    const openModal = () => {
@@ -36,7 +36,6 @@ export default function Card({id, name, image, originalPrice, discount,link }: G
  
       <div className="image-container">
         <img src={image} alt={name} width={400} height={300} className="image-game"/>
-        {discount && <div className="discount-badge">-{discount}%</div>}
       </div>
 
       <div className="content-container">
@@ -44,8 +43,14 @@ export default function Card({id, name, image, originalPrice, discount,link }: G
         <div className="price-game">
           {discount ? (
             <>
-              <span className="original-price">${originalPrice.toFixed(2)}</span>
-              <span className="discount-price">${(originalPrice*(1-discount/100)).toFixed(2)}</span>
+            <div className="discount-container">
+              <span className="original-price">ARS${originalPrice.toFixed(2)}</span>
+              <span className="discount-badge">-{discount}%</span>
+            </div>
+            <div className="price-discount-container">
+              <span className="discount-price">ARS${(originalPrice*(1-discount/100)).toFixed(2)}</span>
+            </div>
+
             </>
           ) : (
             <span className="current-price">${originalPrice.toFixed(2)}</span>
