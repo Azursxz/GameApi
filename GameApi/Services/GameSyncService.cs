@@ -30,7 +30,7 @@ namespace GameApi.Services
                 await Task.Delay(delay, stoppingToken);
 
 
-                _logger.LogInformation("⏳ Sincronización de juegos iniciada a las {time}", DateTimeOffset.Now);
+                _logger.LogInformation("Sincronización de juegos iniciada a las {time}", DateTimeOffset.Now);
 
                 try
                 {
@@ -40,11 +40,11 @@ namespace GameApi.Services
                         await gameService.SincronizarJuegosAsync();
                     }
 
-                    _logger.LogInformation("✅ Sincronización completada.");
+                    _logger.LogInformation("Sincronización completada a las {time}",DateTimeOffset.Now);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "❌ Error durante la sincronización de juegos.");
+                    _logger.LogError(ex, "Error durante la sincronización de juegos.");
                 }
 
                 // Esperar 24 horas

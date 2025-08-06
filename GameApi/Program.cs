@@ -21,7 +21,8 @@ builder.Services.AddDbContext<MyDbContext>(options =>
 
 builder.Services.AddScoped<GameServices>();// Tu servicio que hace la lógica de sincronización
 builder.Services.AddScoped<ScrapperGameService>();// Clase que obtiene los juegos
-builder.Services.AddHostedService<GameSyncService>(); // Servicio que corre cada 24h
+//builder.Services.AddHostedService<GameSyncService>(); // Servicio que corre cada 24h
+builder.Services.AddScoped<GameServiceHangFire>(); 
 
 var app = builder.Build();
 

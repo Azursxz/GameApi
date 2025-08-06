@@ -7,12 +7,12 @@ namespace GameApi.Services
     public class GameServices
     {
         private readonly ScrapperGameService _scraper;
-        private readonly MyDbContext _context;
+        private readonly MyDbContext _db;
 
-        public GameServices(ScrapperGameService scraper, MyDbContext context)
+        public GameServices(ScrapperGameService scraper, MyDbContext db)
         {
             _scraper = scraper;
-            _context = context;
+            _db = db;
         }
 
         public async Task SincronizarJuegosAsync()
@@ -21,7 +21,7 @@ namespace GameApi.Services
 
             foreach (var juego in juegosScrapeados)
             {
-                var juegoExistente = await _context.Games
+                var juegoExistente = await _db.Games
                     .FirstOrDefaultAsync(j => j.Name == juego.Name);
 
                 if (juegoExistente != null)
@@ -35,11 +35,11 @@ namespace GameApi.Services
                 else
                 {
                     juego.FechaActualizacion = DateTime.UtcNow;
-                    await _context.Games.AddAsync(juego);
+                    await _db.Games.AddAsync(juego);
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _db.SaveChangesAsync();
         }
     }
 }
