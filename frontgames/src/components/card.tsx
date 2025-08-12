@@ -31,6 +31,11 @@ export default function Card({id, name, image, originalPrice, discount,link }: G
 
 */
 
+  const calculateDiscountedPrice = (originalPrice: number, discount: number) => {
+    return originalPrice - (originalPrice * discount) / 100
+  }
+
+
   return (
     <div className="card-game">
  
@@ -48,7 +53,7 @@ export default function Card({id, name, image, originalPrice, discount,link }: G
               <span className="discount-badge">-{discount}%</span>
             </div>
             <div className="price-discount-container">
-              <span className="discount-price">ARS${(originalPrice*(1-discount/100)).toFixed(2)}</span>
+              <span className="discount-price">ARS${calculateDiscountedPrice(originalPrice,discount).toFixed(2)}</span>
             </div>
 
             </>
