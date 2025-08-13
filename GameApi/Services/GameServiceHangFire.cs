@@ -14,11 +14,18 @@ namespace GameApi.Services
         }
         public void ConfigurarSincronizacionJuegos()
         {
-            RecurringJob.AddOrUpdate(
+          /*  RecurringJob.AddOrUpdate(
                 "SincronizarJuegos",
                 () => SincronizarAsync(),
                 Cron.Daily(3) // Cada día a las 3 AM
-            );
+            );*/
+
+            RecurringJob.AddOrUpdate(
+               "SincronizarJuegos",
+               () => SincronizarAsync(),
+               "14 01 * * *"
+           );
+        
         }
   
         public async Task SincronizarAsync()

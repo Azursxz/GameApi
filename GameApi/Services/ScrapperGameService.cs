@@ -31,7 +31,7 @@ namespace GameApi.Services
             WebDriverWait wait = new(driver, TimeSpan.FromSeconds(30));
             wait.Until(d => d.FindElements(By.CssSelector(gameItemSelector)).Count > 0);
 
-            int clicks = 0, maxClicks = 160;
+            int clicks = 0, maxClicks = 160;//160
 
             while (clicks < maxClicks)
             {
