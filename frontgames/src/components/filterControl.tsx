@@ -3,21 +3,28 @@ import { useState } from "react"
 import "./FilterControls.css"
 
 interface FilterControlsProps {
-  filters: {
+  filters?: {
     priceMin: number
     priceMax: number
     discountMin: number
     discountMax: number
   }
-  sortBy: "price-asc" | "price-desc" | "discount-asc" | "discount-desc" | "name-asc" | "name-desc"
-  onFiltersChange: (filters: any) => void
-  onSortChange: (
+  sortBy?: "price-asc" | "price-desc" | "discount-asc" | "discount-desc" | "name-asc" | "name-desc"
+  onFiltersChange?: (filters: any) => void
+  onSortChange?: (
     sortBy: "price-asc" | "price-desc" | "discount-asc" | "discount-desc" | "name-asc" | "name-desc",
   ) => void
 }
 
-export default function FilterControls({ filters, sortBy, onFiltersChange, onSortChange }: FilterControlsProps) {
+
+export default function FilterControls({
+  filters = { priceMin: 0, priceMax: 2000, discountMin: 0, discountMax: 100 },
+  sortBy = "name-asc",
+  onFiltersChange,
+  onSortChange,
+}: FilterControlsProps) {
   const [localFilters, setLocalFilters] = useState(filters)
+  const [localSort, setLocalSort] = useState(sortBy)
 
   const sortOptions = [
     { value: "name-asc", label: "Nombre A-Z" },
@@ -31,7 +38,12 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
   const handleInputChange = (field: string, value: number) => {
     const newFilters = { ...localFilters, [field]: value }
     setLocalFilters(newFilters)
-    onFiltersChange(newFilters)
+    onFiltersChange?.(newFilters) // Solo llama si existe
+  }
+
+  const handleSortChangeLocal = (value: typeof localSort) => {
+    setLocalSort(value)
+    onSortChange?.(value)
   }
 
   const resetFilters = () => {
@@ -42,10 +54,12 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
       discountMax: 100,
     }
     setLocalFilters(resetValues)
-    onFiltersChange(resetValues)
-    onSortChange("name-asc")
+    setLocalSort("name-asc")
+    onFiltersChange?.(resetValues)
+    onSortChange?.("name-asc")
   }
 
+  
   return (
     <div className="filter-controls">
       <div className="filter-header">
@@ -60,7 +74,7 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
         <div className="filter-group sort-group">
           <h4 className="filter-group-title">Ordenar por</h4>
           <div className="sort-select-container">
-            <select className="sort-select" value={sortBy} onChange={(e) => onSortChange(e.target.value as any)}>
+            <select className="sort-select" value={sortBy} onChange={(e) => handleSortChangeLocal(e.target.value as any)}>
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
