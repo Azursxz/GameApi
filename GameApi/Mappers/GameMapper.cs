@@ -1,11 +1,10 @@
 ﻿using System;
+using GameApi.DTO;
+using GameApi.Models;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-public static class GameMapper
+namespace GameApi.Mappers
 {
-	public GameMapper()
+	public class GameMapper()
 	{
 		
 		public static GameDto ToDto(Game game)
@@ -32,8 +31,7 @@ public static class GameMapper
 				Discount = gameDto.Discount
 			};
     }
-
-
-
 }
 }
+
+

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Threading.Tasks;
+using GameApi.Mappers;
 
 namespace GameApi.Controllers
 {
@@ -137,7 +138,7 @@ namespace GameApi.Controllers
 
             var totalGames = await query.CountAsync();
 
-            var games = await query
+         /*   var games = await query
                 .OrderBy(g => g.GameId)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -149,16 +150,29 @@ namespace GameApi.Controllers
                     Link = g.Link,
                     Price = g.Price,
                     Discount = g.Discount
-                }).ToListAsync();
+                })
+                .ToListAsync();*/
 
-            var result = new
+
+
+            var games = await query
+                .OrderBy(g => g.GameId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(g => GameMapper.ToDto(g))
+                .ToListAsync();
+
+
+         /*   var result = new
             {
                 TotalItems = totalGames,
                 PageSize = pageSize,
                 PageNumber = pageNumber,
                 TotalPages = (int)Math.Ceiling((double)totalGames / pageSize),
                 Items = games
-            };
+            };*/
+
+            var result = PageMapper.ToPagedResult(games, totalGames, pageNumber, pageSize);
 
             return new OkObjectResult(result);
         }
