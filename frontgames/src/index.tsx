@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Card from './components/card'
 import reportWebVitals from './reportWebVitals';
+import FilterControls from './components/filterControl';
+
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <FilterControls/>
     <Card
           key={12}
           id={12}
