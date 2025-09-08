@@ -1,6 +1,6 @@
 
 import { useState } from "react"
-import "./FilterControls.css"
+import "./filterControl.css"
 
 interface FilterControlsProps {
   filters: {
@@ -37,7 +37,7 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
   const resetFilters = () => {
     const resetValues = {
       priceMin: 0,
-      priceMax: 2000,
+      priceMax: 20000,
       discountMin: 0,
       discountMax: 100,
     }
@@ -95,9 +95,7 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
                 min="0"
                 placeholder="0"
               />
-              <span className="input-currency">$</span>
             </div>
-            <div className="range-separator">-</div>
             <div className="input-group">
               <label className="input-label">Máximo</label>
               <input
@@ -108,11 +106,7 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
                 min="0"
                 placeholder="2000"
               />
-              <span className="input-currency">$</span>
             </div>
-          </div>
-          <div className="range-display">
-            ${localFilters.priceMin} - ${localFilters.priceMax}
           </div>
         </div>
 
@@ -131,9 +125,7 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
                 max="100"
                 placeholder="0"
               />
-              <span className="input-currency">%</span>
             </div>
-            <div className="range-separator">-</div>
             <div className="input-group">
               <label className="input-label">Máximo</label>
               <input
@@ -145,11 +137,7 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
                 max="100"
                 placeholder="100"
               />
-              <span className="input-currency">%</span>
             </div>
-          </div>
-          <div className="range-display">
-            {localFilters.discountMin}% - {localFilters.discountMax}%
           </div>
         </div>
       </div>
