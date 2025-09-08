@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Threading.Tasks;
+using GameApi.Mappers;
 
 namespace GameApi.Controllers
 {
@@ -23,7 +24,7 @@ namespace GameApi.Controllers
 
         public async Task<IActionResult> GetAll()
         {
-            var games = await _db.Games.Select(g => new GameDto
+          /*  var games = await _db.Games.Select(g => new GameDto
             {
                 GameId = g.GameId,
                 Name = g.Name,
@@ -31,7 +32,12 @@ namespace GameApi.Controllers
                 Link = g.Link,
                 Price = g.Price,
                 Discount = g.Discount
-            }).ToListAsync();
+            }).ToListAsync();*/
+
+
+            var games = await _db.Games
+                .Select(g => GameMapper.ToDto(g))
+                .ToListAsync();
 
             return new OkObjectResult(games);
         }
@@ -41,7 +47,7 @@ namespace GameApi.Controllers
         {
             var gameCount = await _db.Games.CountAsync();
 
-            var games = await _db.Games
+            /*var games = await _db.Games
                 .OrderBy(g => g.GameId)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -53,16 +59,28 @@ namespace GameApi.Controllers
                     Link = g.Link,
                     Price = g.Price,
                     Discount = g.Discount
-                }).ToListAsync();
+                }).ToListAsync();*/
 
+            var games = await _db.Games
+               .OrderBy(g => g.GameId)
+               .Skip((pageNumber - 1) * pageSize)
+               .Take(pageSize)
+               .Select(g => GameMapper.ToDto(g)) // ´mapper
+               .ToListAsync();
+
+/*
            var dataGames = new {
                TotalItems = gameCount,
                PageSize = pageSize,
                PageNumber = pageNumber,
                TotalPages = (int)Math.Ceiling((double)gameCount / pageSize),
                Items = games
-           };
-           
+           };*/
+
+            var dataGames = PageMapper.ToPagedResult(games, gameCount, pageNumber, pageSize);
+
+
+
             return new OkObjectResult(dataGames);
         }
 
@@ -120,7 +138,7 @@ namespace GameApi.Controllers
 
             var totalGames = await query.CountAsync();
 
-            var games = await query
+         /*   var games = await query
                 .OrderBy(g => g.GameId)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -132,16 +150,29 @@ namespace GameApi.Controllers
                     Link = g.Link,
                     Price = g.Price,
                     Discount = g.Discount
-                }).ToListAsync();
+                })
+                .ToListAsync();*/
 
-            var result = new
+
+
+            var games = await query
+                .OrderBy(g => g.GameId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(g => GameMapper.ToDto(g))
+                .ToListAsync();
+
+
+         /*   var result = new
             {
                 TotalItems = totalGames,
                 PageSize = pageSize,
                 PageNumber = pageNumber,
                 TotalPages = (int)Math.Ceiling((double)totalGames / pageSize),
                 Items = games
-            };
+            };*/
+
+            var result = PageMapper.ToPagedResult(games, totalGames, pageNumber, pageSize);
 
             return new OkObjectResult(result);
         }

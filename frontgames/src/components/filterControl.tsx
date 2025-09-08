@@ -1,6 +1,6 @@
 
 import { useState } from "react"
-import "./FilterControls.css"
+import "./filterControl.css"
 
 interface FilterControlsProps {
   filters?: {
@@ -49,7 +49,7 @@ export default function FilterControls({
   const resetFilters = () => {
     const resetValues = {
       priceMin: 0,
-      priceMax: 2000,
+      priceMax: 20000,
       discountMin: 0,
       discountMax: 100,
     }
@@ -64,9 +64,14 @@ export default function FilterControls({
     <div className="filter-controls">
       <div className="filter-header">
         <h3 className="filter-title">Filtros y Ordenamiento</h3>
-        <button className="reset-button" onClick={resetFilters}>
-          Resetear Todo
-        </button>
+        <div className="filter-buttons">
+            <button className="reset-button" onClick={resetFilters}>
+             Resetear Todo
+            </button>
+           <button className="search-button"> 
+             Buscar Juegos
+           </button>
+        </div>
       </div>
 
       <div className="filter-groups">
@@ -109,9 +114,7 @@ export default function FilterControls({
                 min="0"
                 placeholder="0"
               />
-              <span className="input-currency">$</span>
             </div>
-            <div className="range-separator">-</div>
             <div className="input-group">
               <label className="input-label">Máximo</label>
               <input
@@ -120,13 +123,9 @@ export default function FilterControls({
                 value={localFilters.priceMax}
                 onChange={(e) => handleInputChange("priceMax", Number(e.target.value))}
                 min="0"
-                placeholder="2000"
+                placeholder="20000"
               />
-              <span className="input-currency">$</span>
             </div>
-          </div>
-          <div className="range-display">
-            ${localFilters.priceMin} - ${localFilters.priceMax}
           </div>
         </div>
 
@@ -145,9 +144,7 @@ export default function FilterControls({
                 max="100"
                 placeholder="0"
               />
-              <span className="input-currency">%</span>
             </div>
-            <div className="range-separator">-</div>
             <div className="input-group">
               <label className="input-label">Máximo</label>
               <input
@@ -159,11 +156,7 @@ export default function FilterControls({
                 max="100"
                 placeholder="100"
               />
-              <span className="input-currency">%</span>
             </div>
-          </div>
-          <div className="range-display">
-            {localFilters.discountMin}% - {localFilters.discountMax}%
           </div>
         </div>
       </div>

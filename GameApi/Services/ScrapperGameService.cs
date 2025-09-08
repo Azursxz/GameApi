@@ -23,7 +23,7 @@ namespace GameApi.Services
            
             new DriverManager().SetUpDriver(new ChromeConfig());
             var options = new ChromeOptions();
-            options.AddArgument("--headless");
+            options.AddArgument("--headless"); // ejecutar sin ventana
 
             using var driver = new ChromeDriver(options);
             driver.Navigate().GoToUrl(url);
