@@ -50,9 +50,14 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
     <div className="filter-controls">
       <div className="filter-header">
         <h3 className="filter-title">Filtros y Ordenamiento</h3>
-        <button className="reset-button" onClick={resetFilters}>
-          Resetear Todo
-        </button>
+        <div className="filter-buttons">
+            <button className="reset-button" onClick={resetFilters}>
+             Resetear Todo
+            </button>
+           <button className="search-button"> 
+             Buscar Juegos
+           </button>
+        </div>
       </div>
 
       <div className="filter-groups">
@@ -104,7 +109,7 @@ export default function FilterControls({ filters, sortBy, onFiltersChange, onSor
                 value={localFilters.priceMax}
                 onChange={(e) => handleInputChange("priceMax", Number(e.target.value))}
                 min="0"
-                placeholder="2000"
+                placeholder="20000"
               />
             </div>
           </div>

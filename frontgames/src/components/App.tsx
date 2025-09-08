@@ -7,7 +7,7 @@ export default function  RootApp () {
   // Estado inicial de filtros
   const [filters, setFilters] = useState({
     priceMin: 0,
-    priceMax: 2000,
+    priceMax: 20000,
     discountMin: 0,
     discountMax: 100,
   });
@@ -19,7 +19,15 @@ export default function  RootApp () {
 
   return (
     <>
-      <Card
+
+      <FilterControls
+        filters={filters}
+        sortBy={sortBy}
+        onFiltersChange={(newFilters) => setFilters(newFilters)}
+        onSortChange={(newSort) => setSortBy(newSort)}
+      />
+
+       <Card
         key={12}
         id={12}
         name={"Crowd City"}
@@ -27,13 +35,6 @@ export default function  RootApp () {
         link={"http://www.xbox.com/es-AR/games/store/crowd-city/9N0NFX4ZPFDS/0010"}
         originalPrice={5499.00}
         discount={20}
-      />
-
-      <FilterControls
-        filters={filters}
-        sortBy={sortBy}
-        onFiltersChange={(newFilters) => setFilters(newFilters)}
-        onSortChange={(newSort) => setSortBy(newSort)}
       />
     </>
   );
