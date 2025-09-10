@@ -1,0 +1,97 @@
+/* GameCatalog.css */
+.catalog-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.catalog-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.catalog-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.catalog-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.catalog-content {
+  display: flex;
+  gap: 24px;
+}
+
+.filters-sidebar {
+  flex: 0 0 300px;
+}
+
+.games-main {
+  flex: 1;
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.error-state h3 {
+  font-size: 1.5rem;
+  color: #555;
+  margin: 0 0 8px 0;
+}
+
+.error-state p {
+  color: #777;
+  margin: 0 0 20px 0;
+}
+
+.error-state button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.error-state button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilos responsivos */
+@media (max-width: 900px) {
+  .catalog-content {
+    flex-direction: column;
+  }
+  
+  .filters-sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .catalog-container {
+    padding: 15px;
+  }
+  
+  .catalog-header h1 {
+    font-size: 2rem;
+  }
+}

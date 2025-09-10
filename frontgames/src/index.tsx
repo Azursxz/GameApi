@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-
-import RootApp from './components/App';
+import GameCatalog from './components/gameCatalog';
+import App from './components/App';
 
 
 const root = ReactDOM.createRoot(
@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
 
-    <RootApp/>
+    <GameCatalog/>
 
   </React.StrictMode>
 );

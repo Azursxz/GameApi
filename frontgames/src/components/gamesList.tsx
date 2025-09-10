@@ -1,9 +1,10 @@
 "use client"
 
 import Card from "./card"
-import "./ProductList.css"
+import "./gamesList.css"
 
-interface Product {
+
+interface Game {
   id: number
   name: string
   price: number
@@ -12,12 +13,12 @@ interface Product {
   image: string
 }
 
-interface ProductListProps {
-  products: Product[]
+interface GameListProps {
+  games: Game[]
   loading?: boolean
 }
 
-export default function ProductList({ products, loading = false }: ProductListProps) {
+export default function GamesList({ games, loading = false }: GameListProps) {
   if (loading) {
     return (
       <div className="product-list-container">
@@ -29,7 +30,7 @@ export default function ProductList({ products, loading = false }: ProductListPr
     )
   }
 
-  if (products.length === 0) {
+  if (games.length === 0) {
     return (
       <div className="product-list-container">
         <div className="empty-state">
@@ -46,19 +47,19 @@ export default function ProductList({ products, loading = false }: ProductListPr
   return (
     <div className="product-list-container">
       <div className="results-header">
-        <h2>Resultados ({products.length} productos)</h2>
+        <h2>Resultados ({games.length} productos)</h2>
       </div>
 
       <div className="product-grid">
-        {products.map((product) => (
+        {games.map((games) => (
                 <Card
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                image={product.image}
-                link = {product.link}
-                originalPrice={product.price}
-                discount={product.discount}               
+                key={games.id}
+                id={games.id}
+                name={games.name}
+                image={games.image}
+                link = {games.link}
+                originalPrice={games.price}
+                discount={games.discount}               
                 />
         ))}
       </div>

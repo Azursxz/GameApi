@@ -1,9 +1,9 @@
 import FilterControls from "./filterControl";
 import Card from "./card";
 import { useState } from "react";
+import GameCatalog from "./gameCatalog";
 
-
-export default function  RootApp () {
+export default function  App () {
   // Estado inicial de filtros
   const [filters, setFilters] = useState({
     priceMin: 0,
@@ -36,6 +36,9 @@ export default function  RootApp () {
         originalPrice={5499.00}
         discount={20}
       />
+
+      <GameCatalog/>
+
     </>
   );
 };
