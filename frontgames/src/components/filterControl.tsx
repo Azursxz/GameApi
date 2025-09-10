@@ -63,7 +63,7 @@ export default function FilterControls({
   return (
     <div className="filter-controls">
       <div className="filter-header">
-        <h3 className="filter-title">Filtros y Ordenamiento</h3>
+        <h3 className="filter-title">Filtros</h3>
         <div className="filter-buttons">
             <button className="reset-button" onClick={resetFilters}>
              Resetear Todo
