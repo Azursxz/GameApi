@@ -37,13 +37,11 @@ builder.Services.AddHangfire(config =>
 builder.Services.AddHangfireServer(); // Inicia el procesador de trabajos
 
 
-builder.Services.AddScoped<GameServices>();// Tu servicio que hace la lógica de sincronización
+builder.Services.AddScoped<GameServices>();// Tu servicio que hace la lï¿½gica de sincronizaciï¿½n
 builder.Services.AddTransient<ScrapperGameService>();// Clase que obtiene los juegos
 //builder.Services.AddHostedService<GameSyncService>(); // Servicio que corre cada 24h
 builder.Services.AddScoped<GameServiceHangFire>();
 
-
-// Add services to the container.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyAllowedOrigins",
@@ -57,11 +55,10 @@ builder.Services.AddCors(options =>
         });
 });
 
-
 var app = builder.Build();
 
 
-// Configurás el job de Hangfire una sola vez al iniciar
+// Configurï¿½s el job de Hangfire una sola vez al iniciar
 using (var scope = app.Services.CreateScope())
 {
     var service = scope.ServiceProvider.GetRequiredService<GameServiceHangFire>();
@@ -76,7 +73,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("MyAllowedOrigins");
-
 
 app.UseHttpsRedirection();
 
