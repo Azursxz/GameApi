@@ -46,7 +46,10 @@ export default function Card({id, name, image, originalPrice, discount,link }: G
       <div className="content-container">
         <h3 className="name-game">{name}</h3>
         <div className="price-game">
-          {discount ? (
+          {originalPrice === 0 ?(
+              <span className="free-game">Gratis</span>
+          )
+          : discount ? (
             <>
             <div className="discount-container">
               <span className="original-price">ARS${originalPrice.toFixed(2)}</span>
