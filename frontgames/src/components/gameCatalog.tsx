@@ -48,6 +48,7 @@ export default function GameCatalog() {
         
         const data = await response.json()
         const gameData = data.items
+        console.log(gameData)
 
         setGames(gameData)
         setError(null)
@@ -133,7 +134,6 @@ export default function GameCatalog() {
     <div className="catalog-container">
       <div className="catalog-header">
         <h1>Catálogo de Juegos</h1>
-        <p>Encuentra los mejores juegos con descuentos increíbles</p>
       </div>
 
       <div className="catalog-content">

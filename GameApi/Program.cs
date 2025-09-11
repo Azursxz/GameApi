@@ -42,7 +42,6 @@ builder.Services.AddTransient<ScrapperGameService>();// Clase que obtiene los ju
 //builder.Services.AddHostedService<GameSyncService>(); // Servicio que corre cada 24h
 builder.Services.AddScoped<GameServiceHangFire>();
 
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyAllowedOrigins",
