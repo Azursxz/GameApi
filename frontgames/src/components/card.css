@@ -90,6 +90,14 @@
     overflow: hidden;
 }
 
+.free-game {
+   font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.4;
+    overflow: hidden;
+}
 
 .button-xbox {
   background-color: #34a102;
