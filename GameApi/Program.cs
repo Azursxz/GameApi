@@ -43,6 +43,19 @@ builder.Services.AddTransient<ScrapperGameService>();// Clase que obtiene los ju
 builder.Services.AddScoped<GameServiceHangFire>();
 
 
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowedOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",  // React
+                               "http://localhost:4200",  // Angular
+                               "http://localhost:5173")  // Vite
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
 
 
 var app = builder.Build();
@@ -61,6 +74,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("MyAllowedOrigins");
+
 
 app.UseHttpsRedirection();
 
