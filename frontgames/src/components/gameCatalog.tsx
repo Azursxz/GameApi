@@ -14,6 +14,13 @@ interface Game {
   discount: number
 }
 
+interface DataGames {
+  totalGames : number
+  pageSize : number
+  pageNumber : number
+  totalPages : number
+}
+
 interface Filters {
   priceMin: number
   priceMax: number
@@ -26,9 +33,15 @@ export default function GameCatalog() {
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [dataGames, setDataGames] = useState<DataGames>({
+  totalGames: 0,
+  pageSize: 0,
+  pageNumber: 0,
+  totalPages: 0,
+});
   const [filters, setFilters] = useState<Filters>({
     priceMin: 0,
-    priceMax: 20000,
+    priceMax: 2000000,
     discountMin: 0,
     discountMax: 100
   })
@@ -40,15 +53,24 @@ export default function GameCatalog() {
       try {
         setLoading(true)
         // Reemplaza con tu endpoint real
-        const response = await fetch('https://localhost:7166/api/game/allgamespaginated?pageNumber=1&pageSize=25')
+        const response = await fetch('https://localhost:7166/api/game/allgamespaginated?pageNumber=1&pageSize=15')
         
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`)
         }
         
         const data = await response.json()
+        console.log(data)
         const gameData = data.items
         console.log(gameData)
+        
+      setDataGames({
+        totalGames: data.totalItems,
+        pageSize: data.pageSize,
+        pageNumber: data.pageNumber,
+        totalPages: data.totalPages,
+      });
+
 
         setGames(gameData)
         setError(null)
@@ -147,7 +169,7 @@ export default function GameCatalog() {
         </aside>
 
         <main className="games-main">
-          <GamesList games={filteredGames} loading={loading} />
+          <GamesList games={filteredGames} loading={loading} dataGames={dataGames} />
         </main>
       </div>
     </div>
