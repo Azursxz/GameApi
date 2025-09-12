@@ -13,12 +13,20 @@ interface Game {
   image: string
 }
 
+interface DataGames {
+  totalGames : number
+  pageSize : number
+  pageNumber : number
+  totalPages : number
+}
+
 interface GameListProps {
   games: Game[]
   loading?: boolean
+  dataGames: DataGames
 }
 
-export default function GamesList({ games, loading = false }: GameListProps) {
+export default function GamesList({ games, loading = false , dataGames }: GameListProps) {
   if (loading) {
     return (
       <div className="product-list-container">
@@ -47,7 +55,7 @@ export default function GamesList({ games, loading = false }: GameListProps) {
   return (
     <div className="product-list-container">
       <div className="results-header">
-        <h2>Resultados ({games.length} productos)</h2>
+        <h2>Resultados ({dataGames.totalGames} productos)</h2>
       </div>
 
       <div className="product-grid">

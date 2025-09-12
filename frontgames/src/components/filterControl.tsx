@@ -49,7 +49,7 @@ export default function FilterControls({
   const resetFilters = () => {
     const resetValues = {
       priceMin: 0,
-      priceMax: 20000,
+      priceMax: 2000000,
       discountMin: 0,
       discountMax: 100,
     }
