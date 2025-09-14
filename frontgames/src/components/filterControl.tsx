@@ -14,6 +14,7 @@ interface FilterControlsProps {
   onSortChange?: (
     sortBy: "price-asc" | "price-desc" | "discount-asc" | "discount-desc" | "name-asc" | "name-desc",
   ) => void
+  onPageReset?: (page: number) => void;
 }
 
 
@@ -22,10 +23,10 @@ export default function FilterControls({
   sortBy = "name-asc",
   onFiltersChange,
   onSortChange,
+  onPageReset,
 }: FilterControlsProps) {
   const [localFilters, setLocalFilters] = useState(filters)
   const [localSort, setLocalSort] = useState(sortBy)
-
   const sortOptions = [
     { value: "name-asc", label: "Nombre A-Z" },
     { value: "name-desc", label: "Nombre Z-A" },
@@ -39,11 +40,13 @@ export default function FilterControls({
     const newFilters = { ...localFilters, [field]: value }
     setLocalFilters(newFilters)
     onFiltersChange?.(newFilters) // Solo llama si existe
+    onPageReset?.(1)
   }
 
   const handleSortChangeLocal = (value: typeof localSort) => {
     setLocalSort(value)
     onSortChange?.(value)
+    onPageReset?.(1)
   }
 
   const resetFilters = () => {
@@ -57,6 +60,7 @@ export default function FilterControls({
     setLocalSort("name-asc")
     onFiltersChange?.(resetValues)
     onSortChange?.("name-asc")
+    onPageReset?.(1)
   }
 
   

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import FilterControls from "./filterControl"
 import GamesList from "./gamesList"
 import "./gameCatalog.css"
+import Pagination from "./pagination"
 
 interface Game {
   id: number
@@ -33,6 +34,8 @@ export default function GameCatalog() {
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [page, setPage] = useState(1);
+  const pageSize = 15
   const [dataGames, setDataGames] = useState<DataGames>({
   totalGames: 0,
   pageSize: 0,
@@ -53,7 +56,7 @@ export default function GameCatalog() {
       try {
         setLoading(true)
         // Reemplaza con tu endpoint real
-        const response = await fetch('https://localhost:7166/api/game/allgamespaginated?pageNumber=1&pageSize=15')
+        const response = await fetch( `https://localhost:7166/api/game/allgamespaginated?pageNumber=${page}&pageSize=${pageSize}`)
         
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`)
@@ -83,7 +86,7 @@ export default function GameCatalog() {
     }
 
     fetchGames()
-  }, [])
+  }, [page])
 
   // Aplicar filtros y ordenamiento
   useEffect(() => {
@@ -157,6 +160,7 @@ export default function GameCatalog() {
       <div className="catalog-header">
         <h1>Catálogo de Juegos</h1>
       </div>
+      <Pagination totalItems={dataGames.totalGames} itemsPerPage={15} onPageChange={setPage}  actualPage={page}/>
 
       <div className="catalog-content">
         <aside className="filters-sidebar">
@@ -165,6 +169,7 @@ export default function GameCatalog() {
             sortBy={sortBy}
             onFiltersChange={handleFiltersChange}
             onSortChange={handleSortChange}
+            onPageReset={setPage}
           />
         </aside>
 
