@@ -47,7 +47,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("MyAllowedOrigins",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000",  // React
+            policy.WithOrigins("http://localhost:3001",
+                               "http://localhost:3000",// React
                                "http://localhost:4200",  // Angular
                                "http://localhost:5173")  // Vite
                   .AllowAnyMethod()

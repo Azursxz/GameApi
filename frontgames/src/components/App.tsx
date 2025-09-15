@@ -8,8 +8,7 @@ export default function  App () {
   const [filters, setFilters] = useState({
     priceMin: 0,
     priceMax: 20000,
-    discountMin: 0,
-    discountMax: 100,
+    discount: 0,
   });
 
   // Estado de ordenamiento

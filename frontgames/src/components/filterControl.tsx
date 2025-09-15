@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import "./filterControl.css"
 
@@ -6,23 +5,23 @@ interface FilterControlsProps {
   filters?: {
     priceMin: number
     priceMax: number
-    discountMin: number
-    discountMax: number
+    discount: number
   }
   sortBy?: "price-asc" | "price-desc" | "discount-asc" | "discount-desc" | "name-asc" | "name-desc"
   onFiltersChange?: (filters: any) => void
   onSortChange?: (
     sortBy: "price-asc" | "price-desc" | "discount-asc" | "discount-desc" | "name-asc" | "name-desc",
   ) => void
+  onApplyFilters?: () => void;
   onPageReset?: (page: number) => void;
 }
 
-
 export default function FilterControls({
-  filters = { priceMin: 0, priceMax: 2000, discountMin: 0, discountMax: 100 },
+  filters = { priceMin: 0, priceMax: 2000, discount: 0},
   sortBy = "name-asc",
   onFiltersChange,
   onSortChange,
+  onApplyFilters,
   onPageReset,
 }: FilterControlsProps) {
   const [localFilters, setLocalFilters] = useState(filters)
@@ -39,8 +38,6 @@ export default function FilterControls({
   const handleInputChange = (field: string, value: number) => {
     const newFilters = { ...localFilters, [field]: value }
     setLocalFilters(newFilters)
-    onFiltersChange?.(newFilters) // Solo llama si existe
-    onPageReset?.(1)
   }
 
   const handleSortChangeLocal = (value: typeof localSort) => {
@@ -53,17 +50,22 @@ export default function FilterControls({
     const resetValues = {
       priceMin: 0,
       priceMax: 2000000,
-      discountMin: 0,
-      discountMax: 100,
+      discount: 0,
     }
     setLocalFilters(resetValues)
     setLocalSort("name-asc")
     onFiltersChange?.(resetValues)
     onSortChange?.("name-asc")
     onPageReset?.(1)
+    onApplyFilters?.()
   }
 
-  
+  const applyFilters = () => {
+    onFiltersChange?.(localFilters)
+    onPageReset?.(1)
+    onApplyFilters?.()
+  }
+
   return (
     <div className="filter-controls">
       <div className="filter-header">
@@ -72,7 +74,7 @@ export default function FilterControls({
             <button className="reset-button" onClick={resetFilters}>
              Resetear Todo
             </button>
-           <button className="search-button"> 
+           <button className="search-button" onClick={applyFilters}> 
              Buscar Juegos
            </button>
         </div>
@@ -83,7 +85,7 @@ export default function FilterControls({
         <div className="filter-group sort-group">
           <h4 className="filter-group-title">Ordenar por</h4>
           <div className="sort-select-container">
-            <select className="sort-select" value={sortBy} onChange={(e) => handleSortChangeLocal(e.target.value as any)}>
+            <select className="sort-select" value={localSort} onChange={(e) => handleSortChangeLocal(e.target.value as any)}>
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -138,27 +140,15 @@ export default function FilterControls({
           <h4 className="filter-group-title">Rango de Descuento</h4>
           <div className="range-inputs">
             <div className="input-group">
-              <label className="input-label">Mínimo</label>
+              <label className="input-label">Descuento mayor o igual a:</label>
               <input
                 type="number"
                 className="filter-input"
-                value={localFilters.discountMin}
-                onChange={(e) => handleInputChange("discountMin", Number(e.target.value))}
+                value={localFilters.discount}
+                onChange={(e) => handleInputChange("discount", Number(e.target.value))}
                 min="0"
                 max="100"
                 placeholder="0"
-              />
-            </div>
-            <div className="input-group">
-              <label className="input-label">Máximo</label>
-              <input
-                type="number"
-                className="filter-input"
-                value={localFilters.discountMax}
-                onChange={(e) => handleInputChange("discountMax", Number(e.target.value))}
-                min="0"
-                max="100"
-                placeholder="100"
               />
             </div>
           </div>
