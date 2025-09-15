@@ -1,4 +1,4 @@
-En este proyecto realizamos un web scrapping para obtener juego de una pagina web.
+En este proyecto realizamos un web scrapping para obtener juegos de una pagina web.
 
 Creamos la tabla en la base de datos y creamos el controller en el backend con sus endpoint.
 
