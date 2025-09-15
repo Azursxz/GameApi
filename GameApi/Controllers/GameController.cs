@@ -111,9 +111,10 @@ namespace GameApi.Controllers
         [HttpGet("Filter/")]
 
         public async Task<IActionResult> GetJuegosFiltrados(
-            [FromQuery] int? rangoMin,
-            [FromQuery] int? rangoMax,
-            [FromQuery] int? discount,
+            [FromQuery] int? rangoMin = 40,
+            [FromQuery] int? rangoMax = 40000,
+            [FromQuery] int? discount = 40,
+            [FromQuery] string? sortBy = "discount-desc",
             int pageNumber = 1,
             int pageSize = 10)
         {
@@ -136,41 +137,67 @@ namespace GameApi.Controllers
                 query = query.Where(g => g.Discount >= discount);
             }
 
+           
+            switch (sortBy)
+            {
+                case "price-asc":
+                    query = query.OrderBy(g => g.Price);
+                    break;
+                case "price-desc":
+                    query = query.OrderByDescending(g => g.Price);
+                    break;
+                case "discount-asc":
+                    query = query.OrderBy(g => g.Discount);
+                    break;
+                case "discount-desc":
+                    query = query.OrderByDescending(g => g.Discount);
+                    break;
+                case "name-desc":
+                    query = query.OrderByDescending(g => g.Name);
+                    break;
+                case "name-asc":
+                default:
+                    query = query.OrderBy(g => g.Name);
+                    break;
+            }
+
             var totalGames = await query.CountAsync();
 
-         /*   var games = await query
-                .OrderBy(g => g.GameId)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .Select(g => new GameDto
-                {
-                    GameId = g.GameId,
-                    Name = g.Name,
-                    Image = g.Image,
-                    Link = g.Link,
-                    Price = g.Price,
-                    Discount = g.Discount
-                })
-                .ToListAsync();*/
+
+            /*   var games = await query
+                   .OrderBy(g => g.GameId)
+                   .Skip((pageNumber - 1) * pageSize)
+                   .Take(pageSize)
+                   .Select(g => new GameDto
+                   {
+                       GameId = g.GameId,
+                       Name = g.Name,
+                       Image = g.Image,
+                       Link = g.Link,
+                       Price = g.Price,
+                       Discount = g.Discount
+                   })
+                   .ToListAsync();*/
 
 
 
             var games = await query
-                .OrderBy(g => g.GameId)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .Select(g => GameMapper.ToDto(g))
                 .ToListAsync();
 
 
-         /*   var result = new
-            {
-                TotalItems = totalGames,
-                PageSize = pageSize,
-                PageNumber = pageNumber,
-                TotalPages = (int)Math.Ceiling((double)totalGames / pageSize),
-                Items = games
-            };*/
+       
+
+            /*   var result = new
+               {
+                   TotalItems = totalGames,
+                   PageSize = pageSize,
+                   PageNumber = pageNumber,
+                   TotalPages = (int)Math.Ceiling((double)totalGames / pageSize),
+                   Items = games
+               };*/
 
             var result = PageMapper.ToPagedResult(games, totalGames, pageNumber, pageSize);
 
