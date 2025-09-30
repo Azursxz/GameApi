@@ -49,23 +49,24 @@ export default function GameCatalog() {
   // Obtener juegos de la API con filtros
   useEffect(() => {
     const fetchGames = async () => {
-      if (!shouldFetch) return;
+     // if (!shouldFetch) return;
       
       try {
         setLoading(true)
         
         // Construir URL con todos los parámetros
-        const params = new URLSearchParams({
+      /*  const params = new URLSearchParams({
           rangoMin: filters.priceMin.toString(),
           rangoMax: filters.priceMax.toString(),
           discount: filters.discount.toString(),
           pageNumber: page.toString(),
           pageSize: pageSize.toString(),
           sortBy: sortBy
-        });
+        });*/
         
-        const response = await fetch(`https://localhost:7166/api/game/filter?rangoMin=${filters.priceMin}&rangoMax=${filters.priceMax}&discount=${filters.discount}&sortBy=${sortBy}&pageNumber=${page}&pageSize=10
-`)
+        const response = await fetch(`https://localhost:7166/api/game/filter?rangoMin=${filters.priceMin}&rangoMax=${filters.priceMax}&discount=${filters.discount}&sortBy=${sortBy}&pageNumber=${page}&pageSize=15`)
+
+        //const response = await fetch(`https://localhost:7166/api/game/filter?${params}`)
 
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`)
@@ -93,7 +94,7 @@ export default function GameCatalog() {
     }
 
     fetchGames()
-  }, [page, shouldFetch])
+  }, [page, shouldFetch, filters.priceMin, filters.priceMax, filters.discount, sortBy])
 
   const handleFiltersChange = (newFilters: Filters) => {
     setFilters(newFilters)
