@@ -163,6 +163,7 @@ namespace GameApi.Controllers
 
             var totalGames = await query.CountAsync();
 
+            query.Where(g => g.FechaActualizacion == DateTime.Today);
 
             /*   var games = await query
                    .OrderBy(g => g.GameId)

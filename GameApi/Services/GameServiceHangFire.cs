@@ -29,7 +29,7 @@ namespace GameApi.Services
             _recurringJobManager.AddOrUpdate(
                 "SincronizarJuegos",
                 () => SincronizarAsync(),
-                "49 02 * * *",  
+                "50 16 * * *",  
                 options
             );
         }
